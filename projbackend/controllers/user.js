@@ -23,3 +23,21 @@ exports.getUser = (req,res) => {
 
     return res.json(req.profile);
 }
+
+exports.updateUser = (req, res) => {
+    Users.findByIdAndUpdate(
+        {_id : req.profile._id},    //find the user
+        {$set: req.body},           //update the selected field
+        {new: true, userFindAndModify: false},  //compulsory parameters
+        (err,user) =>{
+            if(err) {
+                return req.status(400).json({
+                    error:"You are not authorized to update this user"
+                })
+            }
+            user.salt = undefined
+            user.encry_password = undefined
+            res.json(user)
+        }
+    )
+}

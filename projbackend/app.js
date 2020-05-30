@@ -9,6 +9,8 @@ const cors = require("cors")
 //My Routes
 const authRoutes = require("./routes/authentication")
 const userRoutes = require("./routes/user")
+const categoryRoutes = require("./routes/category")
+
 
 //this is DBCONENCTION
 mongoose.connect(process.env.DATABASE, {
@@ -26,6 +28,7 @@ app.use(cors());
 //My routes middleware
 app.use("/api", authRoutes);
 app.use("/api",userRoutes);
+app.use("/api",categoryRoutes);
 
 
 

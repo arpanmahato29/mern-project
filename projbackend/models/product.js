@@ -17,10 +17,11 @@ const productSchema = new mongoose.Schema({
     price:{
         type:Number,
         required:true,
-        maxlength
+        maxlength: 32,
+        trim: true
     },
     category: {
-        type:objectId,
+        type:ObjectId,
         ref: "Category",
         required:true,
     },

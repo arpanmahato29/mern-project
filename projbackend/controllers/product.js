@@ -2,8 +2,8 @@ const Product = require("../models/product")
 const formidable = require("formidable")
 const _ = require("lodash")
 const fs = require("fs")
-const product = require("../models/product")
-const category = require("../models/category")
+const { validationResult } = require("express-validator")
+
 
 
 exports.getProductById = (req,res,next,id) => {
@@ -31,7 +31,7 @@ exports.createProduct = (req,res) => {
         }
         //destructure the fields
         const {price,description,name,category,stock} = fields;
-
+        
         if(
             !name ||
             !description ||
@@ -40,7 +40,7 @@ exports.createProduct = (req,res) => {
             !stock
         ){
             return res.status(400).json({
-                error : "please include all fields"
+                error : "All Fields Are Compulsory."
             })
         }
         

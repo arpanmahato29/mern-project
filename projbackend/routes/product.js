@@ -12,7 +12,6 @@ router.param("userId",getUserById);
 router.param("productId",getProductById);
 
 //all the actual routes
-//TODO: add checker to the routes
 //create route
 router.post("/product/create/:userId",isSignedIn,isAuthenticated,isAdmin,createProduct);
 //read route

@@ -16,10 +16,9 @@ exports.getProductById = (req,res,next,id) => {
         next();
     })
 }
-
+ 
 exports.createProduct = (req,res) => {
-    let form = new formidable.IncomingForm();
-    form.keepExtensions = true;
+    let form = new formidable.IncomingForm(keepExtensions = true);
 
     form.parse(req,(err,fields,file) => {
         if(err){
@@ -42,7 +41,6 @@ exports.createProduct = (req,res) => {
             })
         }
         
-        //TODO: restrictions on field
         let product = new Product(fields);
 
         //handle file

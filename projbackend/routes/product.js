@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router()
+const {check} = require("express-validator")
 
 //controllers
 const {getProductById,createProduct} = require("../controllers/product")

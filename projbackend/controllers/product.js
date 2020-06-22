@@ -2,7 +2,6 @@ const Product = require("../models/product")
 const formidable = require("formidable")
 const _ = require("lodash")
 const fs = require("fs")
-const { validationResult } = require("express-validator")
 
 
 
@@ -165,7 +164,7 @@ exports.getAllUniqueCategories = (req,res) => {
     })
 }
 
-//update stock and sold product
+//update stock and sold product (middleware)
 exports.updateStock =(req,res,next) => {
     let myOperations = req.body.order.products.map(product => {
         return {

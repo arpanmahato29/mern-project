@@ -1,0 +1,19 @@
+.btn,
+.jumbotron,
+.nav :hover {
+  border-radius:30px;
+}
+
+.jumbotron{
+  background-color: #fff;
+}
+
+body{
+  background: #fff;
+}
+
+.nav-bar,.footer{
+  background-color: #323232;
+}
+
+

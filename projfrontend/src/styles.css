@@ -16,4 +16,28 @@ body{
   background-color: #323232;
 }
 
+footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.jumbotron{
+  padding: 0;
+}
+
+div.nav-bar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; 
+}
+
+.bg-myDark{
+  background-color: #cccccc;
+}
+
+
+
+
 

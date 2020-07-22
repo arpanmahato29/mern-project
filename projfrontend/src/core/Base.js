@@ -11,7 +11,7 @@ const Base = ({
     return (
         <div>
             <Navigation/>
-            <div className="container-fluid">
+            <div className="container main-container">
                 <div className="jumbotron text-center">
                     <h2 className="display-4">{title}</h2>
                     <p className="lead">{description}</p>

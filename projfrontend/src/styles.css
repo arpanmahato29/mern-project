@@ -10,18 +10,20 @@
 
 body{
   background: #fff;
+
 }
+
 
 .nav-bar,.footer{
   background-color: #323232;
 }
 
-footer {
+/* footer{
   position: absolute;
   bottom: 0px;
   left: 0px;
   right: 0px;
-}
+} */
 
 .jumbotron{
   padding: 0;

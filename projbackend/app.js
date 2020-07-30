@@ -18,7 +18,9 @@ mongoose.connect(process.env.DATABASE, {
     useUnifiedTopology:true,
     useCreateIndex:true,
 }).then(() => {
-    console.log("DB CONNECTED");  
+    console.log(`${process.env.DATABASE} IS CONNECTED`);  
+}).catch((err) =>{
+    console.log(err);
 })
 
 //this is middleware

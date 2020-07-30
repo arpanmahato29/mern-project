@@ -8,20 +8,22 @@ exports.signup = (req,res) => {
     
     if(!errors.isEmpty()){
         return res.status(422).json({
-            error:errors.array()[0]
+            error:errors.array()[0].msg
             
         })
     }
-
+    req.body.email = req.body.email.toLowerCase();
+    req.body.name = req.body.name.charAt(0).toUpperCase() + req.body.name.slice(1).toLowerCase();
+    req.body.lastname = req.body.lastname.charAt(0).toUpperCase() + req.body.lastname.slice(1).toLowerCase();
     const user = new User(req.body)
+    
     user.save((err,user)=>{
-        //console.log("EROOOOOOOOOOOOOOOOOOOOR" + err);
-        
         if (err) {
+            //if there is an error saving user data to the database
              return res.status(400).json({
-                 err : "NOT able to save user in DB"
-             })
-         }
+                error :  "NOT able to save user in DB"
+            })
+        }
         res.json({
             name : user.name,
             email : user.email,
@@ -40,6 +42,7 @@ exports.signout = (req,res) =>{
 exports.signin = (req,res) => {
     
     const errors = validationResult(req)
+    req.body.email = req.body.email.toLowerCase();
     const {email, password} = req.body;
     if(!errors.isEmpty()){
         return res.status(422).json({
@@ -52,14 +55,14 @@ exports.signin = (req,res) => {
         
         if(err || !user){
             return res.status(400).json({
-                error: {
-                    msg: `no such user present...`
-                }
+                error: `no such user present...`
+
             })
         }
         if(!user.authenticate(password)){
             return res.status(401).json({
-                error:"Email and password do no match"
+                error: "Email and password do no match"
+ 
             })
         }
         //create token
@@ -76,11 +79,13 @@ exports.signin = (req,res) => {
 //protected routes
 exports.isSignedIn = expressJwt({
     secret: process.env.SECRET,
-    userProperty: "auth"
+    userProperty: "auth"        //requestProperty is set to "auth". can be used as req.auth
 });
 
 //custom middlewares
 exports.isAuthenticated = (req, res, next) => {
+    //req.auth is being set from isSignedIn middleware
+    //req.profile comming from the frontend
     let checker = req.profile && req.auth && req.profile._id == req.auth._id
     if (!checker) {
         return res.status(403).json({

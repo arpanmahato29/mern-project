@@ -18,7 +18,7 @@ exports.getProductById = (req,res,next,id) => {
         next();
     })
 }
- //create product
+//create product
 exports.createProduct = (req,res) => {
     let form = new formidable.IncomingForm(keepExtensions = true);
 
@@ -49,7 +49,7 @@ exports.createProduct = (req,res) => {
         if(file.photo){
             if(file.photo.size > 3000000){
                 return res.status(400).json({
-                    error : "file size too big"
+                    error : "file size should not extend 2MB"
                 })
             }
             product.photo.data = fs.readFileSync(file.photo.path)
@@ -92,8 +92,7 @@ exports.deleteProduct = (req,res) => {
             });
         }
         res.json({
-            message:  "Deletion Successful",
-            deletedProduct,
+            message:  `${deletedProduct.name} removed successfully`,
         })
     })
 }
@@ -116,7 +115,7 @@ exports.updateProduct = (req,res) => {
         if(file.photo){
             if(file.photo.size > 3000000){
                 return res.status(400).json({
-                    error : "file size too big"
+                    error : "file size should not extend 2MB"
                 })
             }
             product.photo.data = fs.readFileSync(file.photo.path)
@@ -152,7 +151,7 @@ exports.getAllProducts = (req,res) => {
         res.json(products)
     })
 }
-
+//export all the categories present int the database
 exports.getAllUniqueCategories = (req,res) => {
     Product.distinct("category",{},(err,category)=>{
         if(err) {

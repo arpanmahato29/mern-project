@@ -9,12 +9,12 @@ exports.getCategoryById = (req,res,next, id) => {
         }
         req.category = category;
         next();
-    })
-
-    
+    })    
 }
 
 exports.createCategory = (req,res) => {
+
+    req.body.name = req.body.name.charAt(0).toUpperCase() + req.body.name.slice(1).toLowerCase();
     const category = new Category(req.body);
     category.save((err,category) => {
         if(err){
@@ -42,10 +42,11 @@ exports.getAllCategories = (req,res) => {
 }
 
 exports.updateCategory = (req,res) =>{
+    req.body.name = req.body.name.charAt(0).toUpperCase() + req.body.name.slice(1).toLowerCase();
     const category = req.category;
     category.name = req.body.name;
 
-    category.save((er,updatedCategory) => {
+    category.save((err,updatedCategory) => {
         if(err){
             return res.status(400).json({
                 error : "Failed to update category"

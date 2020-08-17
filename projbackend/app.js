@@ -1,44 +1,48 @@
-require("dotenv").config()
-const mongoose = require("mongoose")
-const express = require("express")
-const app = express()
-const bodyParser = require("body-parser")
-const cookieParser = require("cookie-parser")
-const cors = require("cors")
+require("dotenv").config();
 
-//My Routes
-const authRoutes = require("./routes/authentication")
-const userRoutes = require("./routes/user")
-const categoryRoutes = require("./routes/category")
-const productRoutes = require("./routes/product")
-const orderRoutes = require("./routes/order")
-//this is DBCONENCTION
-mongoose.connect(process.env.DATABASE, {
+const mongoose = require("mongoose");
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+
+//My routes
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+const categoryRoutes = require("./routes/category");
+const productRoutes = require("./routes/product");
+const orderRoutes = require("./routes/order");
+const paymentRoutes = require('./routes/payment');
+
+//DB Connection
+mongoose
+  .connect(process.env.DATABASE, {
     useNewUrlParser: true,
-    useUnifiedTopology:true,
-    useCreateIndex:true,
-}).then(() => {
-    console.log(`${process.env.DATABASE} IS CONNECTED`);  
-}).catch((err) =>{
-    console.log(err);
-})
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  })
+  .then(() => {
+    console.log("DB CONNECTED");
+  });
 
-//this is middleware
+//Middlewares
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
-//My routes middleware
+//My Routes
 app.use("/api", authRoutes);
-app.use("/api",userRoutes);
-app.use("/api",categoryRoutes);
-app.use("/api",productRoutes);
-app.use("/api",orderRoutes)
+app.use("/api", userRoutes);
+app.use("/api", categoryRoutes);
+app.use("/api", productRoutes);
+app.use("/api", orderRoutes);
+app.use('/api',paymentRoutes)
 
-//Port
+//PORT
 const port = process.env.PORT || 8000;
 
-//Starting the server
-app.listen(port,() => {
-    console.log(`app is running at ${port}`);
-})
+//Starting a server
+app.listen(port, () => {
+  console.log(`app is running at ${port}`);
+});
